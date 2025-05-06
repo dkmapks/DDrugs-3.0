@@ -1,9 +1,28 @@
+let cash = 1000;
+let btcBalance = 0;
+let storageUsed = 0;
+let storageLimit = 100;
+
+let inventory = {
+  kokaina: 0,
+  marihuana: 0,
+  mefedron: 0,
+  amfetamina: 0,
+  pixy: 0,
+};
+
+let warehouseLevels = [
+  { name: "Mały magazyn", cost: 500, capacity: 100 },
+  { name: "Średni magazyn", cost: 1000, capacity: 200 },
+  { name: "Duży magazyn", cost: 2000, capacity: 500 },
+];
+
 let production = {
   kokaina: { cost: 500, time: 5000 },
   marihuana: { cost: 100, time: 2000 },
   mefedron: { cost: 700, time: 6000 },
   amfetamina: { cost: 300, time: 4000 },
-  pixy: { cost: 200, time: 3000 }
+  pixy: { cost: 200, time: 3000 },
 };
 
 let marketPrices = {
@@ -11,19 +30,19 @@ let marketPrices = {
   marihuana: 30,
   mefedron: 50,
   amfetamina: 40,
-  pixy: 20
+  pixy: 20,
 };
 
 let playerStats = {
   totalMoney: 0,
   totalSales: 0,
-  totalBought: 0
+  totalBought: 0,
 };
 
 let shopItems = [
   { name: "Plecak", cost: 1000, description: "Zwiększa pojemność magazynu o 50g" },
   { name: "Samochód", cost: 5000, description: "Przyspiesza dostawy o 10%" },
-  { name: "Ochrona", cost: 2000, description: "Zmniejsza ryzyko utraty towaru" }
+  { name: "Ochrona", cost: 2000, description: "Zmniejsza ryzyko utraty towaru" },
 ];
 
 function updateUI() {
@@ -40,7 +59,6 @@ function updateUI() {
   });
   document.getElementById("warehouseOptions").innerHTML = warehouseHTML;
 
-  // Nowe sekcje:
   let marketHTML = "";
   for (let drug in marketPrices) {
     marketHTML += `<p>${drug}: ${marketPrices[drug]} zł/g</p>`;
@@ -88,15 +106,46 @@ function buyShopItem(itemName) {
     if (itemName === "Plecak") {
       storageLimit += 50;
     } else if (itemName === "Samochód") {
-      // Przyspieszenie dostaw
       alert("Samochód kupiony! Przyspiesza dostawy.");
     } else if (itemName === "Ochrona") {
-      // Zmniejszenie ryzyka utraty towaru
       alert("Ochrona kupiona! Zmniejsza ryzyko utraty towaru.");
     }
     updateUI();
   } else {
     alert("Brak wystarczającej ilości kasy!");
+  }
+}
+
+function manualBuy() {
+  let drug = document.getElementById("buyDrug").value;
+  let amount = parseInt(document.getElementById("buyAmount").value);
+  let price = parseInt(document.getElementById("buyPrice").value);
+  let totalCost = price * amount;
+
+  if (cash >= totalCost && storageUsed + amount <= storageLimit) {
+    cash -= totalCost;
+    inventory[drug] += amount;
+    storageUsed += amount;
+    updateUI();
+  } else {
+    alert("Brak środków lub miejsca w magazynie.");
+  }
+}
+
+function manualSell() {
+  let drug = document.getElementById("sellDrug").value;
+  let amount = parseInt(document.getElementById("sellAmount").value);
+  let price = parseInt(document.getElementById("sellPrice").value);
+  let totalRevenue = price * amount;
+
+  if (inventory[drug] >= amount) {
+    inventory[drug] -= amount;
+    storageUsed -= amount;
+    cash += totalRevenue;
+    playerStats.totalSales += amount;
+    updateUI();
+  } else {
+    alert("Brak wystarczającej ilości towaru.");
   }
 }
 
