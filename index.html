@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DDrugs 3.0</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>DDrugs 3.0</h1>
+  <p>Kasa: <span id="cash">0</span> zł</p>
+  <p>BTC: <span id="btc">0</span></p>
+  <p>Magazyn: <span id="storageUsed">0</span> / <span id="storageLimit">0</span> g</p>
+  <h2>Inwentarz</h2>
+  <div id="inventory"></div>
+
+  <h2>Kup narkotyki</h2>
+  <select id="buyDrug">
+    <option value="kokaina">Kokaina</option>
+    <option value="marihuana">Marihuana</option>
+    <option value="mefedron">Mefedron</option>
+    <option value="amfetamina">Amfetamina</option>
+    <option value="pixy">Pixy</option>
+    <option value="lsd">LSD</option>
+    <option value="grzyby">Grzyby</option>
+    <option value="crack">Crack</option>
+  </select>
+  <input type="number" id="buyAmount" placeholder="ilość">
+  <input type="number" id="buyPrice" placeholder="cena/g">
+  <button onclick="manualBuy()">Kup</button>
+
+  <h2>Sprzedaj narkotyki</h2>
+  <select id="sellDrug">
+    <option value="kokaina">Kokaina</option>
+    <option value="marihuana">Marihuana</option>
+    <option value="mefedron">Mefedron</option>
+    <option value="amfetamina">Amfetamina</option>
+    <option value="pixy">Pixy</option>
+    <option value="lsd">LSD</option>
+    <option value="grzyby">Grzyby</option>
+    <option value="crack">Crack</option>
+  </select>
+  <input type="number" id="sellAmount" placeholder="ilość">
+  <input type="number" id="sellPrice" placeholder="cena/g">
+  <button onclick="manualSell()">Sprzedaj</button>
+
+  <h2>Pracownicy</h2>
+  <select id="workerName"></select>
+  <select id="workerDrug">
+    <option value="kokaina">Kokaina</option>
+    <option value="marihuana">Marihuana</option>
+    <option value="mefedron">Mefedron</option>
+    <option value="amfetamina">Amfetamina</option>
+    <option value="pixy">Pixy</option>
+    <option value="lsd">LSD</option>
+    <option value="grzyby">Grzyby</option>
+    <option value="crack">Crack</option>
+  </select>
+  <input type="number" id="workerAmount" placeholder="ilość">
+  <input type="number" id="workerPrice" placeholder="cena/g">
+  <button onclick="assignToWorker()">Wyślij</button>
+  <div id="workersList"></div>
+
+  <h2>BTC operacje</h2>
+  <input type="number" id="btcAmount" placeholder="ilość BTC">
+  <button onclick="btc.deposit()">Kup BTC</button>
+  <button onclick="btc.withdraw()">Sprzedaj BTC</button>
+
+  <h2>Gra</h2>
+  <button onclick="saveGame()">Zapisz</button>
+  <button onclick="loadGame()">Wczytaj</button>
+  <button onclick="resetGame()">Resetuj</button>
+
+  <script src="gra.js"></script>
+</body>
+</html>
