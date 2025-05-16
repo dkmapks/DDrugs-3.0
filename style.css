@@ -1,0 +1,21 @@
+body {
+  background: #111;
+  color: #eee;
+  font-family: monospace;
+  padding: 20px;
+}
+input, button, select {
+  margin: 5px;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+}
+button {
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+h1, h2 {
+  color: #0f0;
+}
